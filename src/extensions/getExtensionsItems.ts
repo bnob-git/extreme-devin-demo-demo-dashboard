@@ -9,7 +9,7 @@ export interface ExtensionMenuItem {
 }
 
 const mapToMenuItem = ({ label, id, open, app }: ExtensionWithParams): ExtensionMenuItem => ({
-  label,
+  label: label || `Extension ${id}`,
   testId: `extension-${id}`,
   onSelect: open,
   avatar: app.brand?.logo.default,
