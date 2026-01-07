@@ -1,7 +1,6 @@
 import { iconSize, iconStrokeWidthBySize } from "@dashboard/components/icons";
-import { SaleorThrobber } from "@dashboard/components/Throbber";
 import { buttonMessages } from "@dashboard/intl";
-import { Button, ButtonProps, sprinkles } from "@saleor/macaw-ui-next";
+import { Box, Button, ButtonProps, Spinner, sprinkles } from "@saleor/macaw-ui-next";
 import { Check, CircleAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
@@ -87,20 +86,14 @@ export const ConfirmButton = ({
   const renderContent = () => {
     if (transitionState === "loading") {
       return (
-        // TODO: Replace with new component when it will be ready https://github.com/saleor/macaw-ui/issues/443
-        <SaleorThrobber
-          size={20}
-          data-test-id="button-progress"
-          className={sprinkles({
-            position: "absolute",
-          })}
-        />
+        <Box data-test-id="button-progress" display="flex" position="absolute">
+          <Spinner />
+        </Box>
       );
     }
 
     if (transitionState === "success" && isCompleted) {
       return (
-        // TODO: Replace with new component when it will be ready https://github.com/saleor/macaw-ui/issues/443
         <Check
           data-test-id="button-success"
           className={sprinkles({
