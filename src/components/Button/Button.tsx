@@ -1,18 +1,24 @@
 import { isExternalURL } from "@dashboard/utils/urls";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { Button as MacawButton, ButtonTypeMap } from "@saleor/macaw-ui";
+import { Button as MacawNextButton, ButtonProps } from "@saleor/macaw-ui-next";
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 
-const _Button = forwardRef<HTMLButtonElement, any>(({ href, ...props }, ref) => {
+export interface CustomButtonProps extends Omit<ButtonProps, "as"> {
+  href?: string;
+}
+
+const _Button = forwardRef<HTMLButtonElement, CustomButtonProps>(({ href, ...props }, ref) => {
   if (href && !isExternalURL(href)) {
-    // @ts-expect-error legacy macaw types
-    return <MacawButton {...props} to={href} component={Link} ref={ref} />;
+    return <MacawNextButton {...props} as={Link} to={href} ref={ref} />;
   }
 
-  return <MacawButton href={href} {...props} ref={ref} />;
+  if (href) {
+    return <MacawNextButton {...props} as="a" href={href} ref={ref} />;
+  }
+
+  return <MacawNextButton {...props} ref={ref} />;
 });
 
 _Button.displayName = "Button";
 
-export const Button = _Button as OverridableComponent<ButtonTypeMap>;
+export const Button = _Button;

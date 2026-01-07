@@ -1,65 +1,46 @@
-// @ts-strict-ignore
 import { getStatusColor, PillStatusType } from "@dashboard/misc";
-import { makeStyles, Pill as MacawuiPill, PillProps } from "@saleor/macaw-ui";
-import { useTheme } from "@saleor/macaw-ui-next";
+import { Box, Chip, Text, useTheme } from "@saleor/macaw-ui-next";
 import clsx from "clsx";
-import { forwardRef } from "react";
+import { CSSProperties, forwardRef, ReactNode } from "react";
 
-const useStyles = makeStyles(
-  {
-    pill: {
-      borderRadius: "32px",
-      border: "1px solid",
-      fontWeight: 500,
-      paddingLeft: "2px",
-      paddingRight: "2px",
-      paddingTop: "0",
-      paddingBottom: "0",
-      "& > span": {
-        fontWeight: 500,
-      },
-      // Override MacawUI Pill padding when there is an icon
-      "& > div, & > svg": {
-        marginLeft: "8px", // Compemsate for the icon internal padding if needed, or adjust based on real DOM
-      },
-    },
-  },
-  { name: "Pill" },
-);
-
-export interface CustomPillProps extends Omit<PillProps, "color"> {
+export interface CustomPillProps {
   color: PillStatusType;
+  label?: string;
+  icon?: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  "data-test-id"?: string;
 }
 
-// Main purpose of this component is to override default Pill component
-// from macaw-ui to add custom styles
-// TODO: migrate to Pill component from new macaw-ui when it will be ready
 export const Pill = forwardRef<HTMLDivElement, CustomPillProps>(
-  ({ color: status, ...props }, ref) => {
+  ({ color: status, label, icon, className, style, ...props }, ref) => {
     const { theme: currentTheme } = useTheme();
 
     const colors = getStatusColor({
       status: status,
       currentTheme,
     });
-    const classes = useStyles();
 
     return (
-      <MacawuiPill
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-        {...(props as any)}
+      <Chip
         ref={ref}
-        className={clsx(classes.pill, props.className)}
+        className={clsx(className)}
         style={{
           backgroundColor: colors.base,
           borderColor: colors.border,
-          color: colors.text,
-          fontWeight: 500,
-          ...props.style,
+          borderWidth: "1px",
+          borderStyle: "solid",
+          ...style,
         }}
-      />
+        data-test-id={props["data-test-id"]}
+      >
+        <Box display="flex" alignItems="center" gap={1}>
+          {icon}
+          <Text size={2} fontWeight="medium" style={{ color: colors.text }}>
+            {label}
+          </Text>
+        </Box>
+      </Chip>
     );
   },
 );
