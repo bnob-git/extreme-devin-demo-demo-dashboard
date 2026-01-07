@@ -26,8 +26,8 @@ export const Menu = ({ items, dataTestId }: TopNavMenuProps) => (
     <Dropdown.Content align="end">
       <Box>
         <List padding={2} borderRadius={4} boxShadow="defaultOverlay" backgroundColor="default1">
-          {items.map(item => (
-            <Dropdown.Item key={item.label}>
+          {items.map((item, index) => (
+            <Dropdown.Item key={item.testId || `menu-item-${index}`}>
               <List.Item
                 borderRadius={4}
                 paddingX={1.5}
@@ -35,7 +35,7 @@ export const Menu = ({ items, dataTestId }: TopNavMenuProps) => (
                 onClick={item.onSelect}
                 data-test-id={item.testId}
               >
-                <Text color={item.color}>{item.label}</Text>
+                <Text color={item.color}>{item.label || "Unknown Action"}</Text>
               </List.Item>
             </Dropdown.Item>
           ))}
