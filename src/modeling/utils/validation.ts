@@ -17,7 +17,7 @@ export const validatePageCreateData = (data: PageData) => {
     errors = [...errors, createEmptyRequiredError("pageType")];
   }
 
-  if (!data.title) {
+  if (!data.title || !data.title.trim()) {
     errors = [...errors, createEmptyRequiredError("title")];
   }
 
