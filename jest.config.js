@@ -36,7 +36,12 @@ const config = {
     "^react$": "<rootDir>/node_modules/react",
     "^react-dom$": "<rootDir>/node_modules/react-dom",
   },
-  collectCoverageFrom: ["<rootDir>/src/**/*.{ts,tsx}"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/**/*.generated.ts",
+    "!<rootDir>/src/**/*.staging.ts",
+    "!<rootDir>/src/**/*.staging.generated.ts",
+  ],
 };
 
 // eslint-disable-next-line no-undef
