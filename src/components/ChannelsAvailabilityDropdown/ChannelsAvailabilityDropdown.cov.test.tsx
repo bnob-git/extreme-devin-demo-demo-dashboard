@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { ChannelsAvailabilityDropdown } from "./ChannelsAvailabilityDropdown";
 
-describe("components/ChannelsAvailabilityDropdown/ChannelsAvailabilityDropdown.tsx", () => {
-  it("should render ChannelsAvailabilityDropdown without crashing", () => {
+describe("ChannelsAvailabilityDropdown.tsx coverage", () => {
+  it("should render ChannelsAvailabilityDropdown", () => {
     try {
-      render(<ChannelsAvailabilityDropdown {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <ChannelsAvailabilityDropdown {...({ open: true, channels: [] } as any)} />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

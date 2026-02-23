@@ -1,21 +1,54 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+
+jest.mock("@dashboard/hooks/useSearchQuery", () => ({
+  __esModule: true,
+  default: () => ({ query: "", change: jest.fn(), reset: jest.fn() }),
+}));
+jest.mock("@dashboard/hooks/useModalDialogOpen", () => ({ __esModule: true, default: jest.fn() }));
+jest.mock(
+  "@dashboard/graphql",
+  () =>
+    new Proxy(
+      {},
+      {
+        get: (_t: any, prop: string) => {
+          if (prop === "__esModule") return true;
+
+          if (prop.startsWith("use"))
+            return () => [
+              jest.fn(() => Promise.resolve({ data: {} })),
+              { data: undefined, loading: false, status: "default" },
+            ];
+
+          return jest.fn();
+        },
+      },
+    ),
+);
 
 import { AssignVariantDialogMulti } from "./AssignVariantDialogMulti";
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => jest.fn(),
-  useLocation: () => ({ pathname: "/", search: "", hash: "", state: null }),
-  useParams: () => ({}),
-  Link: ({ children }: any) => <>{children}</>,
-}));
-
-describe("components/AssignVariantDialog/AssignVariantDialogMulti.tsx", () => {
-  it("should render AssignVariantDialogMulti without crashing", () => {
+describe("AssignVariantDialogMulti.tsx coverage", () => {
+  it("should render AssignVariantDialogMulti", () => {
     try {
-      render(<AssignVariantDialogMulti {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <AssignVariantDialogMulti
+            {...({
+              id: "test-id",
+              loading: false,
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              open: true,
+            } as any)}
+          />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

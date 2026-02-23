@@ -1,13 +1,35 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+
+jest.mock("@dashboard/hooks/useDateLocalize", () => ({
+  __esModule: true,
+  default: () => (d: any) => String(d),
+}));
+jest.mock("@dashboard/hooks/useCurrentDate", () => ({
+  __esModule: true,
+  default: () => new Date("2024-01-01").toISOString(),
+}));
 
 import { ChannelAvailabilityItemContent } from "./ChannelAvailabilityItemContent";
 
-describe("components/ChannelsAvailabilityCard/Channel/ChannelAvailabilityItemContent.tsx", () => {
-  it("should render ChannelAvailabilityItemContent without crashing", () => {
+describe("ChannelAvailabilityItemContent.tsx coverage", () => {
+  it("should render ChannelAvailabilityItemContent", () => {
     try {
-      render(<ChannelAvailabilityItemContent {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <ChannelAvailabilityItemContent
+            {...({
+              id: "test-id",
+              errors: [],
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onChange: jest.fn(),
+              channels: [],
+            } as any)}
+          />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

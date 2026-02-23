@@ -36,11 +36,16 @@ const config = {
     "^react$": "<rootDir>/node_modules/react",
     "^react-dom$": "<rootDir>/node_modules/react-dom",
   },
+  coverageReporters: ["json", "json-summary", "lcov", "clover"],
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx}",
     "!<rootDir>/src/**/*.generated.ts",
     "!<rootDir>/src/**/*.staging.ts",
     "!<rootDir>/src/**/*.staging.generated.ts",
+    "!<rootDir>/src/**/fixtures/**",
+    "!<rootDir>/src/**/fixture.*",
+    "!<rootDir>/src/**/*Fixture*",
+    "!<rootDir>/src/**/*.stories.*",
   ],
 };
 

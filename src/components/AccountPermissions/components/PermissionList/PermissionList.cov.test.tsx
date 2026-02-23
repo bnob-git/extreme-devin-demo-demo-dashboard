@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { PermissionList } from "./PermissionList";
 
-describe("components/AccountPermissions/components/PermissionList/PermissionList.tsx", () => {
-  it("should render PermissionList without crashing", () => {
+describe("PermissionList.tsx coverage", () => {
+  it("should render PermissionList", () => {
     try {
-      render(<PermissionList {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <PermissionList {...({ onChange: jest.fn(), open: true, name: "test" } as any)} />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

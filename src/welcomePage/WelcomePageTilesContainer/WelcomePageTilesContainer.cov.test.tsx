@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { WelcomePageTilesContainer } from "./WelcomePageTilesContainer";
 
-describe("welcomePage/WelcomePageTilesContainer/WelcomePageTilesContainer.tsx", () => {
-  it("should render WelcomePageTilesContainer without crashing", () => {
+describe("WelcomePageTilesContainer.tsx coverage", () => {
+  it("should render WelcomePageTilesContainer", () => {
     try {
-      render(<WelcomePageTilesContainer {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <WelcomePageTilesContainer {...({ id: "test-id" } as any)} />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

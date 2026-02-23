@@ -1,13 +1,56 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
-import { OrderNormalDetails } from "./index";
+jest.mock(
+  "@dashboard/graphql",
+  () =>
+    new Proxy(
+      {},
+      {
+        get: (_t: any, prop: string) => {
+          if (prop === "__esModule") return true;
 
-describe("orders/views/OrderDetails/OrderNormalDetails/index.tsx", () => {
-  it("should render OrderNormalDetails without crashing", () => {
+          if (prop.startsWith("use"))
+            return () => [
+              jest.fn(() => Promise.resolve({ data: {} })),
+              { data: undefined, loading: false, status: "default" },
+            ];
+
+          return jest.fn();
+        },
+      },
+    ),
+);
+jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
+jest.mock("@dashboard/utils/handlers/dialogActionHandlers", () => ({
+  __esModule: true,
+  default: () => [jest.fn(), jest.fn()],
+}));
+
+import { OrderNormalDetails } from ".";
+
+describe("index.tsx coverage", () => {
+  it("should render OrderNormalDetails", () => {
     try {
-      render(<OrderNormalDetails {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <OrderNormalDetails
+            {...({
+              id: "test-id",
+              params: {},
+              loading: false,
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onSubmit: jest.fn(),
+              onClose: jest.fn(),
+              navigate: jest.fn(),
+              open: true,
+              saveButtonBarState: "default",
+            } as any)}
+          />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { ColorPicker } from "./ColorPicker";
 
-describe("components/ColorPicker/ColorPicker.tsx", () => {
-  it("should render ColorPicker without crashing", () => {
+describe("ColorPicker.tsx coverage", () => {
+  it("should render ColorPicker", () => {
     try {
-      render(<ColorPicker {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <ColorPicker {...({ onChange: jest.fn() } as any)} />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

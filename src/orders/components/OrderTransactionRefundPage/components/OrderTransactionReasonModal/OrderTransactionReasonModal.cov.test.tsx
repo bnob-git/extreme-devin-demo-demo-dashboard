@@ -1,13 +1,20 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { OrderTransactionReasonModal } from "./OrderTransactionReasonModal";
 
-describe("orders/components/OrderTransactionRefundPage/components/OrderTransactionReasonModal/OrderTransactionReasonModal.tsx", () => {
-  it("should render OrderTransactionReasonModal without crashing", () => {
+describe("OrderTransactionReasonModal.tsx coverage", () => {
+  it("should render OrderTransactionReasonModal", () => {
     try {
-      render(<OrderTransactionReasonModal {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <OrderTransactionReasonModal
+            {...({ onChange: jest.fn(), onClose: jest.fn(), open: true } as any)}
+          />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

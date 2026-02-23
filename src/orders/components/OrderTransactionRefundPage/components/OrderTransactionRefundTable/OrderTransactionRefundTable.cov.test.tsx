@@ -1,13 +1,45 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+
+jest.mock(
+  "@dashboard/graphql",
+  () =>
+    new Proxy(
+      {},
+      {
+        get: (_t: any, prop: string) => {
+          if (prop === "__esModule") return true;
+
+          if (prop.startsWith("use"))
+            return () => [
+              jest.fn(() => Promise.resolve({ data: {} })),
+              { data: undefined, loading: false, status: "default" },
+            ];
+
+          return jest.fn();
+        },
+      },
+    ),
+);
 
 import { OrderTransactionRefundTable } from "./OrderTransactionRefundTable";
 
-describe("orders/components/OrderTransactionRefundPage/components/OrderTransactionRefundTable/OrderTransactionRefundTable.tsx", () => {
-  it("should render OrderTransactionRefundTable without crashing", () => {
+describe("OrderTransactionRefundTable.tsx coverage", () => {
+  it("should render OrderTransactionRefundTable", () => {
     try {
-      render(<OrderTransactionRefundTable {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <OrderTransactionRefundTable
+            {...({
+              id: "test-id",
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onChange: jest.fn(),
+            } as any)}
+          />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);

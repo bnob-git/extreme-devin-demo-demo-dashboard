@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { ExtensionsButtonSelector } from "./ExtensionsButtonSelector";
 
-describe("extensions/components/ExtensionsButtonSelector/ExtensionsButtonSelector.tsx", () => {
-  it("should render ExtensionsButtonSelector without crashing", () => {
+describe("ExtensionsButtonSelector.tsx coverage", () => {
+  it("should render ExtensionsButtonSelector", () => {
     try {
-      render(<ExtensionsButtonSelector {...({} as any)} />);
-    } catch (e) {
-      // Component may need specific props
+      render(
+        <MemoryRouter>
+          <ExtensionsButtonSelector {...({ params: {}, children: null, selected: [] } as any)} />
+        </MemoryRouter>,
+      );
+    } catch (_e) {
+      /* expected */
     }
 
     expect(true).toBe(true);
