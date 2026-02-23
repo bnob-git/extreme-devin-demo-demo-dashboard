@@ -62,7 +62,8 @@ describe("attributes/utils/data additional tests", () => {
         file: { contentType: "image/png", url: "http://example.com/image.png" },
       } as any;
 
-      attributeValueFragmentToFormData(data);
+      const result = attributeValueFragmentToFormData(data);
+
       expect(result).toEqual({
         name: "Test",
         value: "#ff0000",
@@ -72,7 +73,8 @@ describe("attributes/utils/data additional tests", () => {
     });
 
     it("should handle null data", () => {
-      attributeValueFragmentToFormData(null);
+      const result = attributeValueFragmentToFormData(null);
+
       expect(result).toEqual({
         name: "",
         value: "",
@@ -91,7 +93,8 @@ describe("attributes/utils/data additional tests", () => {
       } as any;
       const values = [{ name: "Red", value: "#ff0000" }];
 
-      getAttributeData(data, values);
+      const result = getAttributeData(data, values);
+
       expect(result.values[0].name).toBe("Red");
       expect(result.storefrontSearchPosition).toBe(10);
     });
@@ -103,7 +106,8 @@ describe("attributes/utils/data additional tests", () => {
       } as any;
       const values = [{ name: "Option 1" }];
 
-      getAttributeData(data, values);
+      const result = getAttributeData(data, values);
+
       expect(result.values[0].name).toBe("Option 1");
     });
 
@@ -114,7 +118,8 @@ describe("attributes/utils/data additional tests", () => {
       } as any;
       const values = [{ name: "A" }, { name: "B" }];
 
-      getAttributeData(data, values);
+      const result = getAttributeData(data, values);
+
       expect(result.values).toHaveLength(2);
     });
 
@@ -126,7 +131,8 @@ describe("attributes/utils/data additional tests", () => {
       } as any;
       const values = [{ name: "file.txt" }];
 
-      getAttributeData(data, values);
+      const result = getAttributeData(data, values);
+
       expect(result.values).toEqual([]);
     });
 
@@ -137,7 +143,8 @@ describe("attributes/utils/data additional tests", () => {
         referenceTypes: [{ value: "PRODUCT" }],
       } as any;
 
-      getAttributeData(data, []);
+      const result = getAttributeData(data, []);
+
       expect(result.values).toEqual([]);
       expect(result.referenceTypes).toEqual(["PRODUCT"]);
     });
@@ -317,7 +324,8 @@ describe("attributes/utils/data additional tests", () => {
         values: [{ id: "v1", name: "Value 1" }],
       } as any;
 
-      mergeChoicesWithValues(attribute);
+      const result = mergeChoicesWithValues(attribute);
+
       expect(result).toHaveLength(2);
     });
 
@@ -329,7 +337,8 @@ describe("attributes/utils/data additional tests", () => {
         values: [{ id: "c1", name: "Choice 1" }],
       } as any;
 
-      mergeChoicesWithValues(attribute);
+      const result = mergeChoicesWithValues(attribute);
+
       expect(result).toHaveLength(1);
     });
   });
@@ -338,12 +347,14 @@ describe("attributes/utils/data additional tests", () => {
     it("should merge new values with existing", () => {
       const attributes = [{ id: "a1", value: ["existing-val"] }] as any;
 
-      mergeAttributeValues("a1", ["new-val"], attributes);
+      const result = mergeAttributeValues("a1", ["new-val"], attributes);
+
       expect(result).toEqual(["existing-val", "new-val"]);
     });
 
     it("should return just new values if attribute not found", () => {
-      mergeAttributeValues("a2", ["new-val"], []);
+      const result = mergeAttributeValues("a2", ["new-val"], []);
+
       expect(result).toEqual(["new-val"]);
     });
   });
@@ -356,13 +367,15 @@ describe("attributes/utils/data additional tests", () => {
         { id: "a2", value: ["v3"] },
       ] as any;
 
-      mergeAttributes(list1, list2);
+      const result = mergeAttributes(list1, list2);
+
       expect(result).toHaveLength(2);
       expect(result.find((a: any) => a.id === "a1")?.value).toEqual(["v2"]);
     });
 
     it("should handle empty lists", () => {
-      mergeAttributes([], []);
+      const result = mergeAttributes([], []);
+
       expect(result).toEqual([]);
     });
   });
@@ -375,7 +388,8 @@ describe("attributes/utils/data additional tests", () => {
       ] as any;
       const values = { a1: { blocks: [] } } as any;
 
-      getRichTextAttributesFromMap(attributes, values);
+      const result = getRichTextAttributesFromMap(attributes, values);
+
       expect(result).toHaveLength(1);
       expect(result[0].id).toBe("a1");
     });
@@ -392,7 +406,8 @@ describe("attributes/utils/data additional tests", () => {
         { id: "a2", data: { inputType: AttributeInputTypeEnum.DROPDOWN }, value: ["test"] },
       ] as any;
 
-      getRichTextDataFromAttributes(attributes);
+      const result = getRichTextDataFromAttributes(attributes);
+
       expect(result).toEqual({ a1: '{"blocks":[]}' });
     });
 
@@ -408,7 +423,8 @@ describe("attributes/utils/data additional tests", () => {
         { id: "a2", value: null },
       ] as any;
 
-      getFileValuesToUploadFromAttributes(attrs);
+      const result = getFileValuesToUploadFromAttributes(attrs);
+
       expect(result).toHaveLength(1);
       expect(result[0].id).toBe("a1");
     });
@@ -430,7 +446,8 @@ describe("attributes/utils/data additional tests", () => {
         },
       ] as any;
 
-      getAttributesAfterFileAttributesUpdate(attrs, uploadResults);
+      const result = getAttributesAfterFileAttributesUpdate(attrs, uploadResults);
+
       expect(result).toHaveLength(2);
     });
   });
@@ -556,7 +573,8 @@ describe("attributes/utils/data additional tests", () => {
         additionalData: [{ value: "ref-1", label: "Product 1" }],
       } as any;
 
-      getReferenceAttributeDisplayData(attribute, {});
+      const result = getReferenceAttributeDisplayData(attribute, {});
+
       expect(result.data.references[0]).toEqual({ label: "Product 1", value: "ref-1" });
     });
 
@@ -568,7 +586,8 @@ describe("attributes/utils/data additional tests", () => {
         additionalData: [],
       } as any;
 
-      getReferenceAttributeDisplayData(attribute, {});
+      const result = getReferenceAttributeDisplayData(attribute, {});
+
       expect(result.data.references).toEqual([]);
     });
 
@@ -583,7 +602,8 @@ describe("attributes/utils/data additional tests", () => {
         products: [{ id: "prod-1", name: "Product 1" }],
       };
 
-      getReferenceAttributeDisplayData(attribute, references);
+      const result = getReferenceAttributeDisplayData(attribute, references);
+
       expect(result.data.references[0]).toEqual({ label: "Product 1", value: "prod-1" });
     });
 
@@ -598,7 +618,8 @@ describe("attributes/utils/data additional tests", () => {
         pages: [{ id: "page-1", title: "Page 1" }],
       };
 
-      getReferenceAttributeDisplayData(attribute, references);
+      const result = getReferenceAttributeDisplayData(attribute, references);
+
       expect(result.data.references[0]).toEqual({ label: "Page 1", value: "page-1" });
     });
   });

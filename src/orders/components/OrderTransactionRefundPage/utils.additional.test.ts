@@ -47,20 +47,22 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
 
   describe("validateQty", () => {
     it("should return empty string for no update value", () => {
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: "" as any },
         order: { lines: [{ id: "l1", quantity: 10 }] } as any,
         draftRefund: undefined,
       });
+
       expect(result).toBe("");
     });
 
     it("should return empty string for no order", () => {
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: 5 },
         order: undefined,
         draftRefund: undefined,
       });
+
       expect(result).toBe("");
     });
 
@@ -70,11 +72,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         grantedRefunds: [],
       } as any;
 
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: -5 },
         order,
         draftRefund: undefined,
       });
+
       expect(result).toBe(0);
     });
 
@@ -84,11 +87,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         grantedRefunds: [],
       } as any;
 
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: 10 },
         order,
         draftRefund: undefined,
       });
+
       expect(result).toBe(5);
     });
 
@@ -98,11 +102,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         grantedRefunds: [],
       } as any;
 
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: 3 },
         order,
         draftRefund: undefined,
       });
+
       expect(result).toBe(3);
     });
 
@@ -112,11 +117,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         grantedRefunds: [],
       } as any;
 
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: "3" },
         order,
         draftRefund: undefined,
       });
+
       expect(result).toBe(3);
     });
 
@@ -126,11 +132,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         grantedRefunds: [],
       } as any;
 
-      validateQty({
+      const result = validateQty({
         update: { row: 0, value: "abc" },
         order,
         draftRefund: undefined,
       });
+
       expect(result).toBe(0);
     });
   });
@@ -176,7 +183,8 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
       } as any;
       const linesToRefund = [{ quantity: 2 }, { quantity: 3 }];
 
-      getSelectedProductsValue({ linesToRefund, order });
+      const result = getSelectedProductsValue({ linesToRefund, order });
+
       expect(result).toBe(80);
     });
 
@@ -186,7 +194,8 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
       } as any;
       const linesToRefund = [{ quantity: NaN }];
 
-      getSelectedProductsValue({ linesToRefund, order });
+      const result = getSelectedProductsValue({ linesToRefund, order });
+
       expect(result).toBe(0);
     });
   });
@@ -253,16 +262,17 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
     });
 
     it("should return full quantity when no other refunds", () => {
-      getMaxQtyToRefund({
+      const result = getMaxQtyToRefund({
         rowData: { id: "line-1", quantity: 10 },
         order: { grantedRefunds: [] } as any,
         draftRefund: undefined,
       });
+
       expect(result).toBe(10);
     });
 
     it("should subtract other refunded quantities", () => {
-      getMaxQtyToRefund({
+      const result = getMaxQtyToRefund({
         rowData: { id: "line-1", quantity: 10 },
         order: {
           grantedRefunds: [
@@ -274,6 +284,7 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         } as any,
         draftRefund: undefined,
       });
+
       expect(result).toBe(7);
     });
 
@@ -283,11 +294,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         lines: [{ orderLine: { id: "line-1" }, quantity: 3 }],
       };
 
-      getMaxQtyToRefund({
+      const result = getMaxQtyToRefund({
         rowData: { id: "line-1", quantity: 10 },
         order: { grantedRefunds: [draftRefund] } as any,
         draftRefund: draftRefund as any,
       });
+
       expect(result).toBe(10);
     });
   });
@@ -297,7 +309,7 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
     const onTransferFunds = jest.fn();
 
     it("should return save draft behavior when not canHandlePayments", () => {
-      getRefundFormSubmitBehavior({
+      const result = getRefundFormSubmitBehavior({
         canHandlePayments: false,
         isDirty: false,
         isEdit: true,
@@ -307,11 +319,12 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         onTransferFunds,
         intl: mockIntl,
       });
+
       expect(result.onSubmit).toBe(onSaveDraft);
     });
 
     it("should return transfer funds behavior when all conditions met", () => {
-      getRefundFormSubmitBehavior({
+      const result = getRefundFormSubmitBehavior({
         canHandlePayments: true,
         isDirty: false,
         isEdit: true,
@@ -321,6 +334,7 @@ describe("OrderTransactionRefundPage/utils additional tests", () => {
         onTransferFunds,
         intl: mockIntl,
       });
+
       expect(result.onSubmit).toBe(onTransferFunds);
     });
   });
