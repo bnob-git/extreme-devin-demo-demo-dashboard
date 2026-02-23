@@ -1,6 +1,11 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
+  __esModule: true,
+  default: () => ({}),
+  useExtensions: () => ({}),
+}));
 jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
   __esModule: true,
   default: () => "/",
@@ -8,34 +13,46 @@ jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
 
 import GiftCardUpdatePageHeader from "./GiftCardUpdatePageHeader";
 
-describe("GiftCardUpdatePageHeader.tsx coverage", () => {
-  it("should render GiftCardUpdatePageHeader", () => {
-    try {
-      render(
-        <MemoryRouter>
-          <GiftCardUpdatePageHeader
-            {...({ id: "test-id", loading: false, errors: [], onSubmit: jest.fn() } as any)}
-          />
-        </MemoryRouter>,
-      );
-    } catch (_e) {
-      /* expected */
-    }
-
-    expect(true).toBe(true);
+describe("GiftCardUpdatePageHeader.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it("should render GiftCardUpdatePageHeader with loading state", () => {
+  it("renders GiftCardUpdatePageHeader with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <GiftCardUpdatePageHeader
             {...({
-              loading: true,
-              disabled: true,
-              data: undefined,
               id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
               params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

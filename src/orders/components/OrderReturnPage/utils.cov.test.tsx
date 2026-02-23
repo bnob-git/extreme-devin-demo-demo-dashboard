@@ -54,7 +54,7 @@ import {
   getWaitingFulfillments,
 } from "./utils";
 
-describe("utils.tsx coverage", () => {
+describe("utils.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

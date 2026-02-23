@@ -1,6 +1,6 @@
 import { numberCellEmptyValue, numberCellRenderer } from "./NumberCell";
 
-describe("NumberCell.tsx coverage", () => {
+describe("NumberCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

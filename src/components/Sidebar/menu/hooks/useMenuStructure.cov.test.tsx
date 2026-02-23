@@ -60,7 +60,7 @@ jest.mock("@dashboard/auth", () => ({
     authenticated: true,
     authenticating: false,
   }),
-  default: () => ({ user: { id: "user-1", email: "test@test.com" }, authenticated: true }),
+  default: () => ({ user: { id: "user-1" }, authenticated: true }),
 }));
 jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
   __esModule: true,
@@ -70,7 +70,7 @@ jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
 
 import { useMenuStructure } from "./useMenuStructure";
 
-describe("useMenuStructure.tsx coverage", () => {
+describe("useMenuStructure.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

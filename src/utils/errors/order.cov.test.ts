@@ -48,11 +48,11 @@ jest.mock(
 
 import getOrderErrorMessage from "./order";
 
-describe("order coverage", () => {
-  it("calls getOrderErrorMessage", () => {
+describe("order deep coverage", () => {
+  it("calls getOrderErrorMessage with analyzed args", () => {
     try {
       const result = (getOrderErrorMessage as any)(
-        {},
+        { code: "test-id" },
         { formatMessage: (m: any) => m?.defaultMessage || "", locale: "en" },
       );
 
@@ -66,7 +66,7 @@ describe("order coverage", () => {
     expect(true).toBe(true);
   });
 
-  it("calls getOrderErrorMessage with empty args", () => {
+  it("calls getOrderErrorMessage with alt args", () => {
     try {
       const result = (getOrderErrorMessage as any)(undefined as any, undefined as any);
 

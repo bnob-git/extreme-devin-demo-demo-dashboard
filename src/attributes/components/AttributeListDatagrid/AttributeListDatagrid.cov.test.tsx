@@ -48,20 +48,20 @@ jest.mock(
       },
     ),
 );
-jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
-jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
-  __esModule: true,
-  default: () => "/",
-}));
 jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
   __esModule: true,
   useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
   default: () => ({ changes: { current: [] }, added: [], removed: [] }),
 }));
+jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
+  __esModule: true,
+  default: () => "/",
+}));
+jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
 
 import { AttributeListDatagrid } from "./AttributeListDatagrid";
 
-describe("AttributeListDatagrid.tsx coverage", () => {
+describe("AttributeListDatagrid.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -70,7 +70,7 @@ describe("AttributeListDatagrid.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders AttributeListDatagrid", () => {
+  it("renders AttributeListDatagrid with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -80,17 +80,16 @@ describe("AttributeListDatagrid.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -100,8 +99,6 @@ describe("AttributeListDatagrid.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

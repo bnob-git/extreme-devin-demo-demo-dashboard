@@ -10,25 +10,52 @@ jest.mock("@dashboard/hooks/useFormset", () => ({
     remove: jest.fn(),
     set: jest.fn(),
     get: jest.fn(),
-    replace: jest.fn(),
   }),
 }));
 jest.mock("@dashboard/hooks/useModalDialogOpen", () => ({ __esModule: true, default: jest.fn() }));
 
 import { VariantChannelsDialog } from ".";
 
-describe("index.tsx coverage", () => {
-  it("should render VariantChannelsDialog", () => {
+describe("index.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("renders VariantChannelsDialog with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <VariantChannelsDialog
             {...({
+              id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
               open: true,
               selected: [],
-              channels: [],
             } as any)}
           />
         </MemoryRouter>,

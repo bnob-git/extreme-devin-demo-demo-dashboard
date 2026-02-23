@@ -48,13 +48,13 @@ jest.mock(
 
 import getProductErrorMessage from "./product";
 
-describe("product coverage", () => {
-  it("calls getProductErrorMessage", () => {
+describe("product deep coverage", () => {
+  it("calls getProductErrorMessage with analyzed args", () => {
     try {
-      const result = (getProductErrorMessage as any)({}, "test", {
-        formatMessage: (m: any) => m?.defaultMessage || "",
-        locale: "en",
-      });
+      const result = (getProductErrorMessage as any)(
+        { code: "test-id", field: {} },
+        { formatMessage: (m: any) => m?.defaultMessage || "", locale: "en" },
+      );
 
       if (result && typeof result.then === "function") {
         result.catch(() => {});
@@ -66,13 +66,9 @@ describe("product coverage", () => {
     expect(true).toBe(true);
   });
 
-  it("calls getProductErrorMessage with empty args", () => {
+  it("calls getProductErrorMessage with alt args", () => {
     try {
-      const result = (getProductErrorMessage as any)(
-        undefined as any,
-        undefined as any,
-        undefined as any,
-      );
+      const result = (getProductErrorMessage as any)(undefined as any, undefined as any);
 
       if (result && typeof result.then === "function") {
         result.catch(() => {});

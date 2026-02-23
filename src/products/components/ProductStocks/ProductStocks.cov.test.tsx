@@ -48,6 +48,17 @@ jest.mock(
       },
     ),
 );
+jest.mock("@dashboard/hooks/useFormset", () => ({
+  __esModule: true,
+  default: (init: any) => ({
+    data: init || [],
+    change: jest.fn(),
+    add: jest.fn(),
+    remove: jest.fn(),
+    set: jest.fn(),
+    get: jest.fn(),
+  }),
+}));
 jest.mock("@dashboard/hooks/useForm", () => ({
   __esModule: true,
   default: (init: any, onSubmit: any) => ({
@@ -61,22 +72,10 @@ jest.mock("@dashboard/hooks/useForm", () => ({
     clearErrors: jest.fn(),
   }),
 }));
-jest.mock("@dashboard/hooks/useFormset", () => ({
-  __esModule: true,
-  default: (init: any) => ({
-    data: init || [],
-    change: jest.fn(),
-    add: jest.fn(),
-    remove: jest.fn(),
-    set: jest.fn(),
-    get: jest.fn(),
-    replace: jest.fn(),
-  }),
-}));
 
 import { ProductStocks } from "./ProductStocks";
 
-describe("ProductStocks.tsx coverage", () => {
+describe("ProductStocks.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -85,7 +84,7 @@ describe("ProductStocks.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders ProductStocks", () => {
+  it("renders ProductStocks with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -95,17 +94,16 @@ describe("ProductStocks.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -115,8 +113,6 @@ describe("ProductStocks.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

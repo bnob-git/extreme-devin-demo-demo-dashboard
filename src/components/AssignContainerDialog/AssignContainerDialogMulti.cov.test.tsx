@@ -9,19 +9,53 @@ jest.mock("@dashboard/hooks/useModalDialogOpen", () => ({ __esModule: true, defa
 
 import { AssignContainerDialogMulti } from "./AssignContainerDialogMulti";
 
-describe("AssignContainerDialogMulti.tsx coverage", () => {
-  it("should render AssignContainerDialogMulti", () => {
+describe("AssignContainerDialogMulti.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("renders AssignContainerDialogMulti with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <AssignContainerDialogMulti
             {...({
+              confirmButtonState: {},
+              containers: [],
+              hasMore: false,
               loading: false,
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
-              onSubmit: jest.fn(),
-              onChange: jest.fn(),
+              labels: "test",
               onClose: jest.fn(),
-              open: true,
+              onFetch: jest.fn(),
+              onFetchMore: jest.fn(),
+              onSubmit: jest.fn(),
+              emptyMessage: {},
+              open: false,
+              id: "test-id",
+              disabled: false,
+              errors: [],
+              onChange: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

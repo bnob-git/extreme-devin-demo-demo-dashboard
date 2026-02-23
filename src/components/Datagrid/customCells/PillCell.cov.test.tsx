@@ -1,6 +1,6 @@
 import { hueToPillColorDark, hueToPillColorLight, pillCellRenderer, stringToHue } from "./PillCell";
 
-describe("PillCell.tsx coverage", () => {
+describe("PillCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -11,7 +11,7 @@ describe("PillCell.tsx coverage", () => {
 
   it("calls stringToHue", () => {
     try {
-      (stringToHue as any)({} as any);
+      (stringToHue as any)("test");
     } catch (_e) {
       /* expected */
     }
@@ -21,7 +21,7 @@ describe("PillCell.tsx coverage", () => {
 
   it("calls hueToPillColorLight", () => {
     try {
-      (hueToPillColorLight as any)({} as any);
+      (hueToPillColorLight as any)(0);
     } catch (_e) {
       /* expected */
     }
@@ -31,7 +31,7 @@ describe("PillCell.tsx coverage", () => {
 
   it("calls hueToPillColorDark", () => {
     try {
-      (hueToPillColorDark as any)({} as any);
+      (hueToPillColorDark as any)(0);
     } catch (_e) {
       /* expected */
     }

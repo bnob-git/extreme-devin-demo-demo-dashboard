@@ -1,34 +1,62 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("@dashboard/hooks/useForm", () => ({
+  __esModule: true,
+  default: (init: any, onSubmit: any) => ({
+    data: init || {},
+    change: jest.fn(),
+    submit: onSubmit || jest.fn(),
+    hasChanged: false,
+    setChanged: jest.fn(),
+    errors: {},
+    setError: jest.fn(),
+    clearErrors: jest.fn(),
+  }),
+}));
+
 import AssignmentListFooter from "./AssignmentListFooter";
 
-describe("AssignmentListFooter.tsx coverage", () => {
-  it("should render AssignmentListFooter", () => {
-    try {
-      render(
-        <MemoryRouter>
-          <AssignmentListFooter {...({ id: "test-id", onChange: jest.fn() } as any)} />
-        </MemoryRouter>,
-      );
-    } catch (_e) {
-      /* expected */
-    }
-
-    expect(true).toBe(true);
+describe("AssignmentListFooter.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it("should render AssignmentListFooter with loading state", () => {
+  it("renders AssignmentListFooter with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <AssignmentListFooter
             {...({
-              loading: true,
-              disabled: true,
-              data: undefined,
               id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
               params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

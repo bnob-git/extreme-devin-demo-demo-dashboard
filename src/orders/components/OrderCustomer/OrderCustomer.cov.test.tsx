@@ -55,7 +55,7 @@ jest.mock("@dashboard/hooks/useStateFromProps", () => ({
 
 import OrderCustomer from "./OrderCustomer";
 
-describe("OrderCustomer.tsx coverage", () => {
+describe("OrderCustomer.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -64,27 +64,37 @@ describe("OrderCustomer.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders OrderCustomer", () => {
+  it("renders OrderCustomer with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <OrderCustomer
             {...({
-              id: "test-id",
+              canEditAddresses: false,
+              canEditCustomer: false,
+              fetchUsers: [],
+              hasMore: false,
               loading: false,
-              disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              order: {},
+              users: [],
+              onCustomerEdit: jest.fn(),
+              onBillingAddressEdit: jest.fn(),
+              onFetchMore: jest.fn(),
+              onProfileView: jest.fn(),
+              onShippingAddressEdit: jest.fn(),
+              id: "test-id",
+              disabled: false,
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -94,8 +104,6 @@ describe("OrderCustomer.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import GraphiQL from "./GraphiQL";
 
-describe("GraphiQL.tsx coverage", () => {
+describe("GraphiQL.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -12,27 +12,35 @@ describe("GraphiQL.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders GraphiQL", () => {
+  it("renders GraphiQL with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <GraphiQL
             {...({
+              data: {},
+              onCopyQuery: jest.fn(),
+              children: [],
+              setShowDialog: jest.fn(),
+              toolbar: {},
+              editorTheme: {},
+              keyMap: {},
+              onEditQuery: jest.fn(),
+              readOnly: {},
+              result: {},
               id: "test-id",
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -42,8 +50,6 @@ describe("GraphiQL.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

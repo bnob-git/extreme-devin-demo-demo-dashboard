@@ -48,21 +48,21 @@ jest.mock(
       },
     ),
 );
+jest.mock("@dashboard/hooks/useNotifier", () => ({ __esModule: true, default: () => jest.fn() }));
+jest.mock("@dashboard/utils/handlers/dialogActionHandlers", () => ({
+  __esModule: true,
+  default: () => [jest.fn(), jest.fn()],
+}));
+jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
 jest.mock("@dashboard/hooks/useStateFromProps", () => ({
   __esModule: true,
   default: (val: any) => [val, jest.fn()],
 }));
 jest.mock("@dashboard/components/WindowTitle", () => ({ __esModule: true, default: () => null }));
-jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
-jest.mock("@dashboard/utils/handlers/dialogActionHandlers", () => ({
-  __esModule: true,
-  default: () => [jest.fn(), jest.fn()],
-}));
-jest.mock("@dashboard/hooks/useNotifier", () => ({ __esModule: true, default: () => jest.fn() }));
 
 import { EditPluginExtension, getConfigurationInput } from "./EditPluginExtension";
 
-describe("EditPluginExtension.tsx coverage", () => {
+describe("EditPluginExtension.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -77,12 +77,31 @@ describe("EditPluginExtension.tsx coverage", () => {
         <MemoryRouter>
           <EditPluginExtension
             {...({
-              id: "test",
+              id: "test-id",
               loading: false,
+              disabled: false,
               errors: [],
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

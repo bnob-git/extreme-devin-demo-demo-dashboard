@@ -1,6 +1,6 @@
 import { usePageAPIProvider } from "./PageFilterAPIProvider";
 
-describe("PageFilterAPIProvider.tsx coverage", () => {
+describe("PageFilterAPIProvider.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

@@ -1,6 +1,6 @@
 import { statusCellRenderer } from "./StatusCell";
 
-describe("StatusCell.tsx coverage", () => {
+describe("StatusCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

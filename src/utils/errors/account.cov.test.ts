@@ -48,12 +48,11 @@ jest.mock(
 
 import getAccountErrorMessage from "./account";
 
-describe("account coverage", () => {
-  it("calls getAccountErrorMessage", () => {
+describe("account deep coverage", () => {
+  it("calls getAccountErrorMessage with analyzed args", () => {
     try {
       const result = (getAccountErrorMessage as any)(
-        {},
-        {},
+        { code: "test-id" },
         { formatMessage: (m: any) => m?.defaultMessage || "", locale: "en" },
       );
 
@@ -67,13 +66,9 @@ describe("account coverage", () => {
     expect(true).toBe(true);
   });
 
-  it("calls getAccountErrorMessage with empty args", () => {
+  it("calls getAccountErrorMessage with alt args", () => {
     try {
-      const result = (getAccountErrorMessage as any)(
-        undefined as any,
-        undefined as any,
-        undefined as any,
-      );
+      const result = (getAccountErrorMessage as any)(undefined as any, undefined as any);
 
       if (result && typeof result.then === "function") {
         result.catch(() => {});

@@ -63,7 +63,7 @@ jest.mock("@dashboard/auth", () => ({
     authenticated: true,
     authenticating: false,
   }),
-  default: () => ({ user: { id: "user-1", email: "test@test.com" }, authenticated: true }),
+  default: () => ({ user: { id: "user-1" }, authenticated: true }),
 }));
 jest.mock("@dashboard/hooks/useLocalStorage", () => ({
   __esModule: true,
@@ -72,7 +72,7 @@ jest.mock("@dashboard/hooks/useLocalStorage", () => ({
 
 import { AppChannelProvider } from "./AppChannelContext";
 
-describe("AppChannelContext.tsx coverage", () => {
+describe("AppChannelContext.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -81,7 +81,7 @@ describe("AppChannelContext.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders useAppChannel", () => {
+  it("renders useAppChannel with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -91,17 +91,16 @@ describe("AppChannelContext.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -111,8 +110,6 @@ describe("AppChannelContext.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}
@@ -132,12 +129,31 @@ describe("AppChannelContext.tsx coverage", () => {
         <MemoryRouter>
           <AppChannelProvider
             {...({
-              id: "test",
+              id: "test-id",
               loading: false,
+              disabled: false,
               errors: [],
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

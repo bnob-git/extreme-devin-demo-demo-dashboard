@@ -1,6 +1,6 @@
 import { useContextualLink } from "./useContextualLink";
 
-describe("useContextualLink.tsx coverage", () => {
+describe("useContextualLink.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -11,7 +11,7 @@ describe("useContextualLink.tsx coverage", () => {
 
   it("calls useContextualLink", () => {
     try {
-      (useContextualLink as any)({} as any);
+      (useContextualLink as any)("test-id");
     } catch (_e) {
       /* expected */
     }

@@ -8,7 +8,7 @@ import BackgroundTasksProvider, {
   useBackgroundTasks,
 } from "./BackgroundTasksProvider";
 
-describe("BackgroundTasksProvider.tsx coverage", () => {
+describe("BackgroundTasksProvider.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -17,7 +17,7 @@ describe("BackgroundTasksProvider.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders BackgroundTasksProvider", () => {
+  it("renders BackgroundTasksProvider with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -27,17 +27,16 @@ describe("BackgroundTasksProvider.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -47,8 +46,6 @@ describe("BackgroundTasksProvider.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}
@@ -74,7 +71,7 @@ describe("BackgroundTasksProvider.tsx coverage", () => {
 
   it("calls useBackgroundTasks", () => {
     try {
-      (useBackgroundTasks as any)({}, {}, jest.fn(), {
+      (useBackgroundTasks as any)({ query: {} }, jest.fn(), {
         formatMessage: (m: any) => m?.defaultMessage || "",
         locale: "en",
       });

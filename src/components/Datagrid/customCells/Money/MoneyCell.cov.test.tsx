@@ -1,6 +1,6 @@
 import { moneyCellRenderer } from "./MoneyCell";
 
-describe("MoneyCell.tsx coverage", () => {
+describe("MoneyCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

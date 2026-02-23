@@ -48,6 +48,11 @@ jest.mock(
       },
     ),
 );
+jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
+  __esModule: true,
+  default: () => ({}),
+  useExtensions: () => ({}),
+}));
 jest.mock("@dashboard/hooks/useForm", () => ({
   __esModule: true,
   default: (init: any, onSubmit: any) => ({
@@ -65,16 +70,11 @@ jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
   __esModule: true,
   default: () => "/",
 }));
-jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
-  __esModule: true,
-  default: () => ({}),
-  useExtensions: () => ({}),
-}));
 jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
 
 import OrderDetailsPage from "./OrderDetailsPage";
 
-describe("OrderDetailsPage.tsx coverage", () => {
+describe("OrderDetailsPage.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -83,27 +83,58 @@ describe("OrderDetailsPage.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders OrderDetailsPage", () => {
+  it("renders OrderDetailsPage with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <OrderDetailsPage
             {...({
-              id: "test-id",
               loading: false,
-              disabled: false,
+              order: {},
+              shop: {},
+              saveButtonBarState: {},
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onBillingAddressEdit: jest.fn(),
+              onFulfillmentApprove: jest.fn(),
+              onFulfillmentCancel: jest.fn(),
+              onFulfillmentTrackingNumberUpdate: jest.fn(),
+              onNoteAdd: jest.fn(),
+              onNoteUpdate: jest.fn(),
+              onNoteUpdateLoading: jest.fn(),
+              onOrderCancel: jest.fn(),
+              onOrderFulfill: jest.fn(),
+              onPaymentCapture: jest.fn(),
+              onPaymentRefund: jest.fn(),
+              onPaymentVoid: jest.fn(),
+              onShippingAddressEdit: jest.fn(),
+              onProfileView: jest.fn(),
+              onInvoiceClick: jest.fn(),
+              onInvoiceGenerate: jest.fn(),
+              onInvoiceSend: jest.fn(),
+              onOrderReturn: jest.fn(),
+              onOrderLineAdd: jest.fn(),
+              onOrderLineChange: jest.fn(),
+              onOrderLineRemove: jest.fn(),
+              onShippingMethodEdit: jest.fn(),
+              onTransactionAction: jest.fn(),
+              onAddManualTransaction: jest.fn(),
+              onOrderLineShowMetadata: jest.fn(),
+              onOrderShowMetadata: jest.fn(),
+              onFulfillmentShowMetadata: jest.fn(),
+              onMarkAsPaid: jest.fn(),
+              onRefundAdd: jest.fn(),
               onSubmit: jest.fn(),
+              id: "test-id",
+              disabled: false,
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -113,8 +144,6 @@ describe("OrderDetailsPage.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

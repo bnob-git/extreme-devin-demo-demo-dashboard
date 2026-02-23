@@ -48,19 +48,19 @@ jest.mock(
       },
     ),
 );
-jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
-  __esModule: true,
-  default: () => "/",
-}));
 jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
   __esModule: true,
   useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
   default: () => ({ changes: { current: [] }, added: [], removed: [] }),
 }));
+jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
+  __esModule: true,
+  default: () => "/",
+}));
 
 import { CustomerListDatagrid } from "./CustomerListDatagrid";
 
-describe("CustomerListDatagrid.tsx coverage", () => {
+describe("CustomerListDatagrid.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -69,7 +69,7 @@ describe("CustomerListDatagrid.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders CustomerListDatagrid", () => {
+  it("renders CustomerListDatagrid with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -79,17 +79,16 @@ describe("CustomerListDatagrid.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -99,8 +98,6 @@ describe("CustomerListDatagrid.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

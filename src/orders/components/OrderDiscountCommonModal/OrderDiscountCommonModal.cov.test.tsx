@@ -51,7 +51,7 @@ jest.mock(
 
 import OrderDiscountCommonModal from "./OrderDiscountCommonModal";
 
-describe("OrderDiscountCommonModal.tsx coverage", () => {
+describe("OrderDiscountCommonModal.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -60,7 +60,7 @@ describe("OrderDiscountCommonModal.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders OrderDiscountCommonModal", () => {
+  it("renders OrderDiscountCommonModal with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -70,17 +70,16 @@ describe("OrderDiscountCommonModal.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -90,8 +89,6 @@ describe("OrderDiscountCommonModal.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

@@ -1,29 +1,57 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("@dashboard/hooks/useCurrentDate", () => ({
+  __esModule: true,
+  default: () => "2024-01-01",
+}));
 jest.mock("@dashboard/hooks/useDateLocalize", () => ({
   __esModule: true,
   default: () => (d: any) => String(d),
 }));
-jest.mock("@dashboard/hooks/useCurrentDate", () => ({
-  __esModule: true,
-  default: () => new Date("2024-01-01").toISOString(),
-}));
 
 import { ChannelAvailabilityItemContent } from "./ChannelAvailabilityItemContent";
 
-describe("ChannelAvailabilityItemContent.tsx coverage", () => {
-  it("should render ChannelAvailabilityItemContent", () => {
+describe("ChannelAvailabilityItemContent.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("renders ChannelAvailabilityItemContent with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <ChannelAvailabilityItemContent
             {...({
               id: "test-id",
+              loading: false,
+              disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              onSubmit: jest.fn(),
               onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

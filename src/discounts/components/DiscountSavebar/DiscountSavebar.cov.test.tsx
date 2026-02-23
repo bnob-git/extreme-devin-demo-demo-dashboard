@@ -5,13 +5,47 @@ jest.mock("@dashboard/hooks/useNotifier", () => ({ __esModule: true, default: ()
 
 import { DiscountSavebar } from "./DiscountSavebar";
 
-describe("DiscountSavebar.tsx coverage", () => {
-  it("should render DiscountSavebar", () => {
+describe("DiscountSavebar.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("renders DiscountSavebar with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <DiscountSavebar
-            {...({ disabled: false, onSubmit: jest.fn(), onDelete: jest.fn() } as any)}
+            {...({
+              id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
+            } as any)}
           />
         </MemoryRouter>,
       );

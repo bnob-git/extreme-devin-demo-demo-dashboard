@@ -1,41 +1,71 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("@dashboard/auth", () => ({
+  __esModule: true,
+  useUser: () => ({
+    user: {
+      id: "user-1",
+      email: "test@test.com",
+      firstName: "Test",
+      lastName: "User",
+      isStaff: true,
+      userPermissions: [{ code: "MANAGE_PRODUCTS", name: "Manage products" }],
+      avatar: null,
+    },
+    authenticated: true,
+    authenticating: false,
+  }),
+  default: () => ({ user: { id: "user-1" }, authenticated: true }),
+}));
+
 import AccountPermissions from "./AccountPermissions";
 
-describe("AccountPermissions.tsx coverage", () => {
-  it("should render AccountPermissions", () => {
-    try {
-      render(
-        <MemoryRouter>
-          <AccountPermissions
-            {...({
-              disabled: false,
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
-              onChange: jest.fn(),
-              selected: [],
-            } as any)}
-          />
-        </MemoryRouter>,
-      );
-    } catch (_e) {
-      /* expected */
-    }
-
-    expect(true).toBe(true);
+describe("AccountPermissions.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it("should render AccountPermissions with loading state", () => {
+  it("renders AccountPermissions with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <AccountPermissions
             {...({
-              loading: true,
-              disabled: true,
-              data: undefined,
+              data: {},
+              disabled: false,
+              disabledPermissionsTooltip: false,
+              permissionsExceeded: {},
+              onChange: jest.fn(),
+              description: "test",
+              fullAccessLabel: "test",
+              errorMessage: {},
               id: "test-id",
+              loading: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
               params: {},
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

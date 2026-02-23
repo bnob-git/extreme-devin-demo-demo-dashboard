@@ -1,6 +1,6 @@
 import { useGiftCardsFiltersAPIProvider } from "./GiftCardsFilterAPIProvider";
 
-describe("GiftCardsFilterAPIProvider.tsx coverage", () => {
+describe("GiftCardsFilterAPIProvider.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

@@ -48,24 +48,24 @@ jest.mock(
       },
     ),
 );
-jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
-jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
-  __esModule: true,
-  default: () => "/",
-}));
-jest.mock("@dashboard/hooks/useLocale", () => ({
-  __esModule: true,
-  default: () => ({ locale: "en", setLocale: jest.fn() }),
-}));
 jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
   __esModule: true,
   useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
   default: () => ({ changes: { current: [] }, added: [], removed: [] }),
 }));
+jest.mock("@dashboard/hooks/useLocale", () => ({
+  __esModule: true,
+  default: () => ({ locale: "en", setLocale: jest.fn() }),
+}));
+jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
+jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
+  __esModule: true,
+  default: () => "/",
+}));
 
 import { VoucherListDatagrid } from "./VoucherListDatagrid";
 
-describe("VoucherListDatagrid.tsx coverage", () => {
+describe("VoucherListDatagrid.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -74,7 +74,7 @@ describe("VoucherListDatagrid.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders VoucherListDatagrid", () => {
+  it("renders VoucherListDatagrid with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -84,17 +84,16 @@ describe("VoucherListDatagrid.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -104,8 +103,6 @@ describe("VoucherListDatagrid.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

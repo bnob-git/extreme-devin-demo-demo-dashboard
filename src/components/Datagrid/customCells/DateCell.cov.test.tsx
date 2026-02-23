@@ -1,6 +1,6 @@
 import { dateCellRenderer } from "./DateCell";
 
-describe("DateCell.tsx coverage", () => {
+describe("DateCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -11,7 +11,7 @@ describe("DateCell.tsx coverage", () => {
 
   it("calls dateCellRenderer", () => {
     try {
-      (dateCellRenderer as any)({} as any);
+      (dateCellRenderer as any)({});
     } catch (_e) {
       /* expected */
     }

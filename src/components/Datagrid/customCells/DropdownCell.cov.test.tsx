@@ -1,6 +1,6 @@
 import { dropdownCellRenderer, emptyDropdownCellValue } from "./DropdownCell";
 
-describe("DropdownCell.tsx coverage", () => {
+describe("DropdownCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

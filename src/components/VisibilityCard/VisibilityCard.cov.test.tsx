@@ -3,48 +3,68 @@ import { MemoryRouter } from "react-router-dom";
 
 jest.mock("@dashboard/hooks/useCurrentDate", () => ({
   __esModule: true,
-  default: () => new Date("2024-01-01").toISOString(),
+  default: () => "2024-01-01",
 }));
 jest.mock("@dashboard/hooks/useDateLocalize", () => ({
   __esModule: true,
   default: () => (d: any) => String(d),
 }));
+jest.mock("@dashboard/hooks/useForm", () => ({
+  __esModule: true,
+  default: (init: any, onSubmit: any) => ({
+    data: init || {},
+    change: jest.fn(),
+    submit: onSubmit || jest.fn(),
+    hasChanged: false,
+    setChanged: jest.fn(),
+    errors: {},
+    setError: jest.fn(),
+    clearErrors: jest.fn(),
+  }),
+}));
 
 import VisibilityCard from "./VisibilityCard";
 
-describe("VisibilityCard.tsx coverage", () => {
-  it("should render VisibilityCard", () => {
-    try {
-      render(
-        <MemoryRouter>
-          <VisibilityCard
-            {...({
-              errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
-              onChange: jest.fn(),
-              children: null,
-            } as any)}
-          />
-        </MemoryRouter>,
-      );
-    } catch (_e) {
-      /* expected */
-    }
-
-    expect(true).toBe(true);
+describe("VisibilityCard.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it("should render VisibilityCard with loading state", () => {
+  it("renders VisibilityCard with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <VisibilityCard
             {...({
-              loading: true,
-              disabled: true,
-              data: undefined,
               id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
               params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

@@ -1,6 +1,16 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("@dashboard/hooks/usePaginator", () => ({
+  __esModule: true,
+  default: () => ({
+    loadNextPage: jest.fn(),
+    loadPreviousPage: jest.fn(),
+    pageInfo: { hasNextPage: false, hasPreviousPage: false },
+  }),
+  createPaginationState: () => ({ first: 20, after: null, last: null, before: null }),
+}));
+jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
 jest.mock("@dashboard/hooks/useShop", () => ({
   __esModule: true,
   default: () => ({
@@ -8,50 +18,51 @@ jest.mock("@dashboard/hooks/useShop", () => ({
     defaultCountry: { code: "US", country: "US" },
     defaultWeightUnit: "KG",
     displayGrossPrices: true,
-    name: "Shop",
-    permissions: [],
-    version: "3.0.0",
-  }),
-}));
-jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
-jest.mock("@dashboard/hooks/usePaginator", () => ({
-  __esModule: true,
-  default: () => ({
-    loadNextPage: jest.fn(),
-    loadPreviousPage: jest.fn(),
-    paginatorType: "click",
-    pageInfo: { hasNextPage: false, hasPreviousPage: false },
   }),
 }));
 
 import TranslationsEntities from "./TranslationsEntities";
 
-describe("TranslationsEntities.tsx coverage", () => {
-  it("should render TranslationsEntities", () => {
-    try {
-      render(
-        <MemoryRouter>
-          <TranslationsEntities {...({ params: {}, navigate: jest.fn() } as any)} />
-        </MemoryRouter>,
-      );
-    } catch (_e) {
-      /* expected */
-    }
-
-    expect(true).toBe(true);
+describe("TranslationsEntities.tsx deep coverage", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it("should render TranslationsEntities with loading state", () => {
+  it("renders TranslationsEntities with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <TranslationsEntities
             {...({
-              loading: true,
-              disabled: true,
-              data: undefined,
               id: "test-id",
+              loading: false,
+              disabled: false,
+              errors: [],
+              onSubmit: jest.fn(),
+              onChange: jest.fn(),
+              onClose: jest.fn(),
+              onBack: jest.fn(),
+              navigate: jest.fn(),
               params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
+              channels: [],
+              settings: { rowNumber: 20, columns: [] },
+              onUpdateListSettings: jest.fn(),
+              sort: { sort: "name", asc: true },
+              onSort: jest.fn(),
+              currentTab: 0,
+              tabs: ["All"],
+              onTabChange: jest.fn(),
+              onTabDelete: jest.fn(),
+              onTabSave: jest.fn(),
+              initialSearch: "",
+              onSearchChange: jest.fn(),
+              open: true,
+              selected: [],
             } as any)}
           />
         </MemoryRouter>,

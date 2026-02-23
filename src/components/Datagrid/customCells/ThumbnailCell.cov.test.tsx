@@ -1,6 +1,6 @@
 import { thumbnailCellRenderer } from "./ThumbnailCell";
 
-describe("ThumbnailCell.tsx coverage", () => {
+describe("ThumbnailCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

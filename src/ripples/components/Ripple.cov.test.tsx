@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import { Ripple } from "./Ripple";
 
-describe("Ripple.tsx coverage", () => {
+describe("Ripple.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -12,27 +12,27 @@ describe("Ripple.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders Ripple", () => {
+  it("renders Ripple with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <Ripple
             {...({
+              model: {},
               id: "test-id",
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -42,8 +42,6 @@ describe("Ripple.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

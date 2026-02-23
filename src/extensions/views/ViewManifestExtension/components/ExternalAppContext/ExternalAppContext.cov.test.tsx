@@ -2,7 +2,7 @@ jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: (
 
 import { useExternalApp } from "./ExternalAppContext";
 
-describe("ExternalAppContext.tsx coverage", () => {
+describe("ExternalAppContext.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

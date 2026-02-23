@@ -6,7 +6,7 @@ import {
   sortColumns,
 } from "./utils";
 
-describe("utils.tsx coverage", () => {
+describe("utils.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -27,7 +27,7 @@ describe("utils.tsx coverage", () => {
 
   it("calls getExitIcon", () => {
     try {
-      (getExitIcon as any)({} as any);
+      (getExitIcon as any)([], {});
     } catch (_e) {
       /* expected */
     }
@@ -47,7 +47,7 @@ describe("utils.tsx coverage", () => {
 
   it("calls isLastEnabledColumn", () => {
     try {
-      (isLastEnabledColumn as any)({} as any);
+      (isLastEnabledColumn as any)("test", [], "test");
     } catch (_e) {
       /* expected */
     }

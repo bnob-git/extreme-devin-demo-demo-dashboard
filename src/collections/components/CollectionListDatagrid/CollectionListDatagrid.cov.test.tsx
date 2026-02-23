@@ -1,19 +1,19 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
-  __esModule: true,
-  default: () => "/",
-}));
 jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
   __esModule: true,
   useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
   default: () => ({ changes: { current: [] }, added: [], removed: [] }),
 }));
+jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
+  __esModule: true,
+  default: () => "/",
+}));
 
 import { CollectionListDatagrid } from "./CollectionListDatagrid";
 
-describe("CollectionListDatagrid.tsx coverage", () => {
+describe("CollectionListDatagrid.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -22,7 +22,7 @@ describe("CollectionListDatagrid.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders CollectionListDatagrid", () => {
+  it("renders CollectionListDatagrid with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -32,17 +32,16 @@ describe("CollectionListDatagrid.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -52,8 +51,6 @@ describe("CollectionListDatagrid.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

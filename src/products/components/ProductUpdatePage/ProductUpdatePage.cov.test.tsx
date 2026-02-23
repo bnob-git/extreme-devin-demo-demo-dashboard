@@ -63,7 +63,16 @@ jest.mock("@dashboard/auth", () => ({
     authenticated: true,
     authenticating: false,
   }),
-  default: () => ({ user: { id: "user-1", email: "test@test.com" }, authenticated: true }),
+  default: () => ({ user: { id: "user-1" }, authenticated: true }),
+}));
+jest.mock("@dashboard/hooks/useStateFromProps", () => ({
+  __esModule: true,
+  default: (val: any) => [val, jest.fn()],
+}));
+jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
+  __esModule: true,
+  default: () => ({}),
+  useExtensions: () => ({}),
 }));
 jest.mock("@dashboard/hooks/useForm", () => ({
   __esModule: true,
@@ -82,20 +91,11 @@ jest.mock("@dashboard/hooks/useBackLinkWithState", () => ({
   __esModule: true,
   default: () => "/",
 }));
-jest.mock("@dashboard/extensions/hooks/useExtensions", () => ({
-  __esModule: true,
-  default: () => ({}),
-  useExtensions: () => ({}),
-}));
-jest.mock("@dashboard/hooks/useStateFromProps", () => ({
-  __esModule: true,
-  default: (val: any) => [val, jest.fn()],
-}));
 jest.mock("@dashboard/hooks/useNavigator", () => ({ __esModule: true, default: () => jest.fn() }));
 
 import ProductUpdatePage from "./ProductUpdatePage";
 
-describe("ProductUpdatePage.tsx coverage", () => {
+describe("ProductUpdatePage.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -104,7 +104,7 @@ describe("ProductUpdatePage.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders ProductUpdatePage", () => {
+  it("renders ProductUpdatePage with deep props", () => {
     try {
       render(
         <MemoryRouter>
@@ -114,17 +114,16 @@ describe("ProductUpdatePage.tsx coverage", () => {
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -134,8 +133,6 @@ describe("ProductUpdatePage.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}

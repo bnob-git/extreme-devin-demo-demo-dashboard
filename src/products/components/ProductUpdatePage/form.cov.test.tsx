@@ -48,6 +48,46 @@ jest.mock(
       },
     ),
 );
+jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
+  __esModule: true,
+  useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
+  default: () => ({ changes: { current: [] }, added: [], removed: [] }),
+}));
+jest.mock("@dashboard/hooks/useHandleFormSubmit", () => ({
+  __esModule: true,
+  default: () => jest.fn(),
+}));
+jest.mock("@dashboard/components/Form/useExitFormDialog", () => ({
+  __esModule: true,
+  default: () => ({
+    shouldBlockNavigation: jest.fn(() => false),
+    setIsDirty: jest.fn(),
+    setExitDialogSubmitRef: jest.fn(),
+    setEnableExitDialog: jest.fn(),
+    withFormId: jest.fn(),
+    formId: "test-form",
+  }),
+}));
+jest.mock("@dashboard/hooks/useFormset", () => ({
+  __esModule: true,
+  default: (init: any) => ({
+    data: init || [],
+    change: jest.fn(),
+    add: jest.fn(),
+    remove: jest.fn(),
+    set: jest.fn(),
+    get: jest.fn(),
+  }),
+}));
+jest.mock("@dashboard/utils/metadata/useMetadataChangeTrigger", () => ({
+  __esModule: true,
+  default: () => ({
+    isMetadataModified: false,
+    isPrivateMetadataModified: false,
+    makeChangeHandler: jest.fn((h: any) => h),
+    resetMetadataChanged: jest.fn(),
+  }),
+}));
 jest.mock("@dashboard/hooks/useForm", () => ({
   __esModule: true,
   default: (init: any, onSubmit: any) => ({
@@ -61,55 +101,14 @@ jest.mock("@dashboard/hooks/useForm", () => ({
     clearErrors: jest.fn(),
   }),
 }));
-jest.mock("@dashboard/hooks/useHandleFormSubmit", () => ({
-  __esModule: true,
-  default: () => jest.fn(),
-}));
-jest.mock("@dashboard/utils/metadata/useMetadataChangeTrigger", () => ({
-  __esModule: true,
-  default: () => ({
-    isMetadataModified: false,
-    isPrivateMetadataModified: false,
-    makeChangeHandler: jest.fn((h: any) => h),
-    resetMetadataChanged: jest.fn(),
-  }),
-}));
 jest.mock("@dashboard/hooks/useLocale", () => ({
   __esModule: true,
   default: () => ({ locale: "en", setLocale: jest.fn() }),
 }));
-jest.mock("@dashboard/components/Form/useExitFormDialog", () => ({
-  __esModule: true,
-  default: () => ({
-    shouldBlockNavigation: jest.fn(() => false),
-    setIsDirty: jest.fn(),
-    setExitDialogSubmitRef: jest.fn(),
-    setEnableExitDialog: jest.fn(),
-    withFormId: jest.fn(),
-    formId: "test-form",
-  }),
-}));
-jest.mock("@dashboard/components/Datagrid/hooks/useDatagridChange", () => ({
-  __esModule: true,
-  useDatagridChangeState: () => ({ changes: { current: [] }, added: [], removed: [] }),
-  default: () => ({ changes: { current: [] }, added: [], removed: [] }),
-}));
-jest.mock("@dashboard/hooks/useFormset", () => ({
-  __esModule: true,
-  default: (init: any) => ({
-    data: init || [],
-    change: jest.fn(),
-    add: jest.fn(),
-    remove: jest.fn(),
-    set: jest.fn(),
-    get: jest.fn(),
-    replace: jest.fn(),
-  }),
-}));
 
 import ProductUpdateForm, { useProductUpdateForm } from "./form";
 
-describe("form.tsx coverage", () => {
+describe("form.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -118,27 +117,27 @@ describe("form.tsx coverage", () => {
     jest.restoreAllMocks();
   });
 
-  it("renders ProductUpdateForm", () => {
+  it("renders ProductUpdateForm with deep props", () => {
     try {
       render(
         <MemoryRouter>
           <ProductUpdateForm
             {...({
+              submit: {},
               id: "test-id",
               loading: false,
               disabled: false,
               errors: [],
-              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               onSubmit: jest.fn(),
               onChange: jest.fn(),
               onClose: jest.fn(),
               onBack: jest.fn(),
-              onDelete: jest.fn(),
               navigate: jest.fn(),
+              params: {},
+              data: { id: "test-id", name: "test", metadata: [], privateMetadata: [] },
               channels: [],
               settings: { rowNumber: 20, columns: [] },
               onUpdateListSettings: jest.fn(),
-              params: {},
               sort: { sort: "name", asc: true },
               onSort: jest.fn(),
               currentTab: 0,
@@ -148,8 +147,6 @@ describe("form.tsx coverage", () => {
               onTabSave: jest.fn(),
               initialSearch: "",
               onSearchChange: jest.fn(),
-              onFilterChange: jest.fn(),
-              filterOpts: {},
               open: true,
               selected: [],
             } as any)}
@@ -165,7 +162,7 @@ describe("form.tsx coverage", () => {
 
   it("calls useProductUpdateForm", () => {
     try {
-      (useProductUpdateForm as any)({}, jest.fn());
+      (useProductUpdateForm as any)({ variants: [] }, jest.fn());
     } catch (_e) {
       /* expected */
     }

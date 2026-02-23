@@ -1,6 +1,6 @@
 import { useCollectionFilterAPIProvider } from "./CollectionFilterAPIProvider";
 
-describe("CollectionFilterAPIProvider.tsx coverage", () => {
+describe("CollectionFilterAPIProvider.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

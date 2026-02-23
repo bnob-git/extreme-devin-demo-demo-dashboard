@@ -48,7 +48,7 @@ jest.mock(
 
 import { useStaffMembersFilterAPIProvider } from "./StaffMembersFilterAPIProvider";
 
-describe("StaffMembersFilterAPIProvider.tsx coverage", () => {
+describe("StaffMembersFilterAPIProvider.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});

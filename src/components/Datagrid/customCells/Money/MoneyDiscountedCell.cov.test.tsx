@@ -1,6 +1,6 @@
 import { moneyDiscountedCellRenderer } from "./MoneyDiscountedCell";
 
-describe("MoneyDiscountedCell.tsx coverage", () => {
+describe("MoneyDiscountedCell.tsx deep coverage", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(console, "warn").mockImplementation(() => {});
