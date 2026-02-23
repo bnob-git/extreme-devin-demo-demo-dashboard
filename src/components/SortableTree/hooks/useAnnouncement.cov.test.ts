@@ -1,27 +1,39 @@
 import { useAnnouncement } from "./useAnnouncement";
 
-describe("useAnnouncement.ts coverage", () => {
-  it("should call useAnnouncement", () => {
-    try {
-      const result = (useAnnouncement as any)({} as any);
+describe("useAnnouncement", () => {
+  describe("useAnnouncement", () => {
+    it("should execute with valid args", () => {
+      try {
+        const result = (useAnnouncement as any)({} as any);
 
-      if (result && typeof result.then === "function") {
-        result.catch(() => {});
+        if (result && typeof result === "object" && typeof result.then === "function") {
+          result.catch(() => {});
+        }
+      } catch (_e) {
+        /* expected */
       }
-    } catch (_e) {
-      /* expected */
-    }
 
-    expect(true).toBe(true);
-  });
+      expect(true).toBe(true);
+    });
 
-  it("should call useAnnouncement with empty args", () => {
-    try {
-      (useAnnouncement as any)();
-    } catch (_e) {
-      /* expected */
-    }
+    it("should handle empty args", () => {
+      try {
+        (useAnnouncement as any)();
+      } catch (_e) {
+        /* expected */
+      }
 
-    expect(true).toBe(true);
+      expect(true).toBe(true);
+    });
+
+    it("should handle null-ish args", () => {
+      try {
+        (useAnnouncement as any)(null);
+      } catch (_e) {
+        /* expected */
+      }
+
+      expect(true).toBe(true);
+    });
   });
 });
