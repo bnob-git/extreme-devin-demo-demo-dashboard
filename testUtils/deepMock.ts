@@ -42,7 +42,7 @@ export function createDeepMock(overrides: Record<string, unknown> = {}): any {
           result = () => "";
           break;
         case "length":
-          result = 0;
+          result = 1;
           break;
         // Array methods that CALL callbacks to execute loop body code
         case "map":
