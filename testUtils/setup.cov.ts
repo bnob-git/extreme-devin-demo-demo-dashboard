@@ -235,3 +235,177 @@ jest.mock("use-react-router", () => ({
     },
   }),
 }));
+
+// Mock react-router-dom
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: () => ({ id: "test-id", token: "test-token" }),
+  useNavigate: () => jest.fn(),
+  useLocation: () => ({ pathname: "/", search: "", hash: "", state: null }),
+  useSearchParams: () => [new URLSearchParams(), jest.fn()],
+  Link: ({ children, ...props }: any) =>
+    jest.requireActual("react").createElement("a", props, children),
+  NavLink: ({ children, ...props }: any) =>
+    jest.requireActual("react").createElement("a", props, children),
+}));
+
+// Mock auth
+jest.mock("@dashboard/auth", () => ({
+  __esModule: true,
+  useUser: () => ({
+    user: {
+      id: "test-user-id",
+      email: "test@example.com",
+      firstName: "Test",
+      lastName: "User",
+      isStaff: true,
+      userPermissions: [
+        { code: "MANAGE_ORDERS", sourcePermissionGroups: [] },
+        { code: "MANAGE_PRODUCTS", sourcePermissionGroups: [] },
+        { code: "MANAGE_USERS", sourcePermissionGroups: [] },
+        { code: "MANAGE_STAFF", sourcePermissionGroups: [] },
+        { code: "MANAGE_APPS", sourcePermissionGroups: [] },
+        { code: "MANAGE_SETTINGS", sourcePermissionGroups: [] },
+        { code: "MANAGE_CHANNELS", sourcePermissionGroups: [] },
+        { code: "MANAGE_DISCOUNTS", sourcePermissionGroups: [] },
+        { code: "MANAGE_SHIPPING", sourcePermissionGroups: [] },
+        { code: "MANAGE_TRANSLATIONS", sourcePermissionGroups: [] },
+        { code: "MANAGE_MENUS", sourcePermissionGroups: [] },
+        { code: "MANAGE_PAGES", sourcePermissionGroups: [] },
+        { code: "MANAGE_GIFT_CARD", sourcePermissionGroups: [] },
+        { code: "MANAGE_CHECKOUTS", sourcePermissionGroups: [] },
+      ],
+      avatar: null,
+      accessibleChannels: [
+        {
+          id: "ch1",
+          name: "Default Channel",
+          slug: "default-channel",
+          currencyCode: "USD",
+          isActive: true,
+        },
+      ],
+      restrictedAccessToChannels: false,
+    },
+    authenticated: true,
+    authenticating: false,
+    loginLoading: false,
+    login: jest.fn(),
+    logout: jest.fn(),
+    requestLoginByExternalPlugin: jest.fn(),
+    loginByExternalPlugin: jest.fn(),
+  }),
+  useAuth: () => ({
+    authenticated: true,
+    authenticating: false,
+    login: jest.fn(),
+    logout: jest.fn(),
+  }),
+  useHasAllPermissions: () => true,
+  useHasAnyPermissions: () => true,
+}));
+
+// Mock auth hooks
+jest.mock("@dashboard/auth/hooks/useUserAccessibleChannels", () => ({
+  __esModule: true,
+  useUserAccessibleChannels: () => [
+    {
+      id: "ch1",
+      name: "Default Channel",
+      slug: "default-channel",
+      currencyCode: "USD",
+      isActive: true,
+    },
+  ],
+}));
+
+// Mock useForm
+jest.mock("@dashboard/hooks/useForm", () => ({
+  __esModule: true,
+  default: (initial: any, _onSubmit: any) => ({
+    change: jest.fn(),
+    data: initial || {},
+    errors: {},
+    hasChanged: false,
+    submit: jest.fn(),
+    set: jest.fn(),
+    reset: jest.fn(),
+    setChanged: jest.fn(),
+    triggerChange: jest.fn(),
+    handleChange: jest.fn(),
+    toggleValue: jest.fn(),
+    formId: "test-form",
+    setExitDialogSubmitRef: jest.fn(),
+    setIsSubmitDisabled: jest.fn(),
+  }),
+  useForm: (initial: any, _onSubmit: any) => ({
+    change: jest.fn(),
+    data: initial || {},
+    errors: {},
+    hasChanged: false,
+    submit: jest.fn(),
+    set: jest.fn(),
+    reset: jest.fn(),
+    setChanged: jest.fn(),
+    triggerChange: jest.fn(),
+    handleChange: jest.fn(),
+    toggleValue: jest.fn(),
+    formId: "test-form",
+    setExitDialogSubmitRef: jest.fn(),
+    setIsSubmitDisabled: jest.fn(),
+  }),
+}));
+
+// Mock useDebounce
+jest.mock("@dashboard/hooks/useDebounce", () => ({
+  __esModule: true,
+  default: (fn: any) => fn,
+}));
+
+// Mock channels
+jest.mock("@dashboard/channels/utils", () => ({
+  __esModule: true,
+  createSortedChannelsDataFromProduct: jest.fn(() => []),
+  createChannelsDataWithDiscountPrice: jest.fn(() => []),
+  createChannelsDataWithPrice: jest.fn(() => []),
+  createChannelsData: jest.fn(() => []),
+  createChannelsDataFromSale: jest.fn(() => []),
+  createChannelsDataWithSaleDiscountPrice: jest.fn(() => []),
+}));
+
+// Mock ConditionalFilter context
+jest.mock("@dashboard/components/ConditionalFilter/context", () => ({
+  __esModule: true,
+  useConditionalFilterContext: () => ({
+    containerState: {
+      value: [],
+      updateAt: jest.fn(),
+      getAt: jest.fn(),
+      removeAt: jest.fn(),
+      createEmpty: jest.fn(),
+      create: jest.fn(),
+      exist: jest.fn(() => false),
+      updateBySlug: jest.fn(),
+    },
+    valueProvider: { value: [], loading: false, persist: jest.fn() },
+  }),
+}));
+
+// Mock Datagrid
+jest.mock("@dashboard/components/Datagrid/Datagrid", () => ({
+  __esModule: true,
+  default: () => jest.requireActual("react").createElement("div", null, "Datagrid"),
+  useDatagridChangeState: () => ({
+    changes: { current: {} },
+    added: [],
+    removed: [],
+    getChangeIndex: jest.fn(),
+  }),
+}));
+
+// Mock Savebar
+jest.mock("@dashboard/components/Savebar", () => ({
+  __esModule: true,
+  default: () => jest.requireActual("react").createElement("div", null, "Savebar"),
+  Savebar: () => jest.requireActual("react").createElement("div", null, "Savebar"),
+}));
