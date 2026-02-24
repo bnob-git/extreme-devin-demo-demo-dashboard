@@ -63,8 +63,8 @@ describe("canBeSorted", () => {
   it("executes correctly", () => {
     const _result = canBeSorted({} as any, false);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -75,8 +75,8 @@ describe("getSortQueryVariables", () => {
   it("executes correctly", () => {
     const _result = getSortQueryVariables({} as any, false);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);

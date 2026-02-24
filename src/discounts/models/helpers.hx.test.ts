@@ -70,8 +70,8 @@ describe("createBaseAPIInput", () => {
       productType: { id: "pt-1" },
     } as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -82,8 +82,8 @@ describe("createAPIWhereInput", () => {
   it("executes correctly", () => {
     const _result = createAPIWhereInput({} as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -94,8 +94,8 @@ describe("getConditionType", () => {
   it("executes correctly", () => {
     const _result = getConditionType({} as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -106,8 +106,8 @@ describe("getConditionValue", () => {
   it("executes correctly", () => {
     const _result = getConditionValue({} as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -118,8 +118,8 @@ describe("hasPredicateNestedConditions", () => {
   it("executes correctly", () => {
     const _result = hasPredicateNestedConditions({} as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);

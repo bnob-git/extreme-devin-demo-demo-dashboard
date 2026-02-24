@@ -14,8 +14,8 @@ describe("createFilterTabUtils", () => {
   it("executes correctly", () => {
     const _result = createFilterTabUtils("");
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);

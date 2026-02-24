@@ -52,8 +52,8 @@ describe("getTransactionAmount", () => {
   it("executes correctly", () => {
     const _result = getTransactionAmount({} as any, "");
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -64,8 +64,8 @@ describe("findMethodName", () => {
   it("executes correctly", () => {
     const _result = findMethodName("test-id", []);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -76,8 +76,8 @@ describe("mapPaymentToTransactionEvents", () => {
   it("executes correctly", () => {
     const _result = mapPaymentToTransactionEvents({} as any);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
@@ -88,8 +88,8 @@ describe("mapOrderActionsToTransactionActions", () => {
   it("executes correctly", () => {
     const _result = mapOrderActionsToTransactionActions([]);
 
-    if (result && typeof result === "object" && typeof (result as any).then === "function") {
-      (result as any).catch(() => {});
+    if (_result && typeof _result === "object" && typeof (_result as any).then === "function") {
+      (_result as any).catch(() => {});
     }
 
     expect(true).toBe(true);
